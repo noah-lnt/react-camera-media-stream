@@ -136,8 +136,8 @@ export const RCamera = (props) => {
               width={modelWidth}
             />
           ) : (
-              ''
-            )}
+            ''
+          )}
           <canvas ref={canvasRef} style={{ display: 'none' }} />
         </div>
         <div className={style['RCamera-camera-footer']}>
@@ -166,8 +166,8 @@ export const RCamera = (props) => {
           </div>
         </div>
       ) : (
-          ''
-        )}
+        ''
+      )}
     </div>
   )
 }
