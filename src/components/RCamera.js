@@ -141,8 +141,12 @@ export const RCamera = (props) => {
           <canvas ref={canvasRef} style={{ display: 'none' }} />
         </div>
         <div className={style['RCamera-camera-footer']}>
-          <button onClick={props.onClose}>Cancel</button>
-          <button onClick={handleTakePicture}>Take Photo</button>
+          <button onClick={props.onClose}>
+            {props.textCancel ? props.textCancel : 'Cancel'}
+          </button>
+          <button onClick={handleTakePicture}>
+            {props.textPicture ? props.textPicture : 'Take picture'}
+          </button>
         </div>
       </div>
       {isConfirm ? (
@@ -154,14 +158,16 @@ export const RCamera = (props) => {
             />
           </div>
           <div className={style['RCamera-preview-footer']}>
-            <button onClick={() => setIsConfirm(false)}>Retake</button>
+            <button onClick={() => setIsConfirm(false)}>
+              {props.textAgain ? props.textAgain : 'Retake'}
+            </button>
             <button
               onClick={() => {
                 setIsConfirm(false)
                 props.onTakePicture(data)
               }}
             >
-              Use Photo
+              {props.textConfirm ? props.textConfirm : 'Confirm'}
             </button>
           </div>
         </div>
