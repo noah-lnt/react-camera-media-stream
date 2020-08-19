@@ -53,7 +53,15 @@ export const RCamera = (props) => {
     }
     canvas.width = width
     canvas.height = height
-    canvas.getContext('2d').drawImage(videoRef.current, 0, 0, width, height)
+
+    const ctx = canvas.getContext('2d')
+    ctx.drawImage(videoRef.current, 0, 0, width, height)
+    if (props.namePicture) {
+      ctx.font = '22px Sans-Serif'
+      ctx.fillStyle = 'red'
+      ctx.fillText(props.namePicture, 20, 40)
+    }
+
     const data = canvas.toDataURL(
       'image/jpeg',
       props.imageCompression ? props.imageCompression : 0.8
@@ -136,8 +144,8 @@ export const RCamera = (props) => {
               width={modelWidth}
             />
           ) : (
-            ''
-          )}
+              ''
+            )}
           <canvas ref={canvasRef} style={{ display: 'none' }} />
         </div>
         <div className={style['RCamera-camera-footer']}>
@@ -172,8 +180,8 @@ export const RCamera = (props) => {
           </div>
         </div>
       ) : (
-        ''
-      )}
+          ''
+        )}
     </div>
   )
 }

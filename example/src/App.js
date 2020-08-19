@@ -14,6 +14,7 @@ const App = () => {
       onTakePicture={(data) => console.log(data)}
       onClose={() => setTest(false)}
       isFullscreen={false}
+      namePicture="test"
     /> : ''}
   </div>
 }
