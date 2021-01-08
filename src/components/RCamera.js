@@ -181,7 +181,7 @@ export const RCamera = (props) => {
             {props.textPicture ? props.textPicture : 'Take picture'}
           </button>
           {
-            props.isLight ?
+            props.isTorch ?
               <button onClick={startTorch}>
                 {props.textTorch ? props.textTorch : 'Enable torch'}
               </button> : ''
