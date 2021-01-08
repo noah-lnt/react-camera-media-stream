@@ -14,6 +14,12 @@ export const RCamera = (props) => {
   const modelRef = useRef(null)
   const canvasRef = useRef(null)
 
+  let imageCapture = null;
+  const imageCaptureConfig = {
+    fillLightMode: "off", /* or "flash" */
+    focusMode: "continuous"
+  };
+
   const startCamera = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
@@ -25,6 +31,25 @@ export const RCamera = (props) => {
         }
       })
       videoRef.current.srcObject = stream
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  const startTorch = () => {
+    if (imageCaptureConfig.fillLightMode === "torch") {
+      imageCaptureConfig.fillLightMode = "off"
+    } else {
+      imageCaptureConfig.fillLightMode = "torch"
+    }
+
+    try {
+      const mediaStream = videoRef.current.srcObject
+      const track = mediaStream.getVideoTracks()[0];
+      imageCapture = new ImageCapture(track);
+
+      imageCapture.setOptions(imageCaptureConfig)
+        .catch(err => console.error('setOptions(' + JSON.stringify(imageCaptureConfig) + ') failed: ', err));
     } catch (e) {
       console.log(e)
     }
@@ -155,6 +180,12 @@ export const RCamera = (props) => {
           <button onClick={handleTakePicture}>
             {props.textPicture ? props.textPicture : 'Take picture'}
           </button>
+          {
+            props.isLight ?
+              <button onClick={startTorch}>
+                {props.textTorch ? props.textTorch : 'Enable torch'}
+              </button> : ''
+          }
         </div>
       </div>
       {isConfirm ? (

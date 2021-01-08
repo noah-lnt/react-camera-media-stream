@@ -10,11 +10,12 @@ const App = () => {
     <button onClick={() => setTest(true)}>OUVRIR CAMERA</button>
     {test ? <RCamera
       model={require('./images/model.png')}
-      isConfirm={true}
+      isConfirm={false}
       onTakePicture={(data) => console.log(data)}
       onClose={() => setTest(false)}
       isFullscreen={false}
       namePicture="test"
+      isTorch={true}
     /> : ''}
   </div>
 }
