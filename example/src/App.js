@@ -13,7 +13,7 @@ const App = () => {
       isConfirm={false}
       onTakePicture={(data) => console.log(data)}
       onClose={() => setTest(false)}
-      isFullscreen={false}
+      isFullscreen={true}
       namePicture="test"
       isTorch={true}
     /> : ''}

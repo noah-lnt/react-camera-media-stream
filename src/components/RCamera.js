@@ -25,8 +25,8 @@ export const RCamera = (props) => {
       const stream = await navigator.mediaDevices.getUserMedia({
         audio: false,
         video: {
-          width: { ideal: 2048 },
-          height: { ideal: 1536 },
+          width: { ideal: 2560 },
+          height: { ideal: 1440 },
           facingMode: 'environment'
         }
       })
@@ -135,14 +135,14 @@ export const RCamera = (props) => {
   }
 
   useEffect(() => {
-    if (props.isFullscreen) {
+    if (props.isFullscreen && screenfull.isEnabled) {
       screenfull.request(containerRef.current)
     }
     startCamera()
     window.addEventListener('resize', setSize)
     document.body.style.overflow = 'hidden'
     return () => {
-      if (props.isFullscreen) {
+      if (props.isFullscreen && screenfull.isEnabled) {
         screenfull.toggle(containerRef.current)
       }
       document.body.style.overflow = 'unset'
