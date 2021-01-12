@@ -16,19 +16,16 @@ export const RCamera = (props) => {
   const canvasRef = useRef(null)
 
   const startCamera = async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({
-        audio: false,
-        video: {
-          width: { ideal: 2560 },
-          height: { ideal: 1440 },
-          facingMode: 'environment'
-        }
-      })
+    navigator.mediaDevices.getUserMedia({
+      audio: false,
+      video: {
+        width: 2560,
+        height: 1440,
+        facingMode: 'environment'
+      }
+    }).then((stream) => {
       videoRef.current.srcObject = stream
-    } catch (e) {
-      console.log(e)
-    }
+    }).catch(err => console.log(err));
   }
 
   const startTorch = () => {
@@ -38,16 +35,15 @@ export const RCamera = (props) => {
 
       if (!isTorch) {
         track.applyConstraints({
-          torch: true
+          advanced: [{ torch: true }]
         }).then(function () {
           setIsTorch(true)
         }).catch((e) => {
           console.log(e)
         });
-      }
-      else {
+      } else {
         track.applyConstraints({
-          torch: true
+          advanced: [{ torch: false }]
         }).then(function () {
           setIsTorch(false)
         }).catch((e) => {
@@ -105,36 +101,38 @@ export const RCamera = (props) => {
 
   const setSize = () => {
     if (videoRef.current) {
-      const videoHeight = videoRef.current.videoHeight
-      const videoWidth = videoRef.current.videoWidth
-      const videoRatio = videoHeight / videoWidth
+      setTimeout(() => {
+        const videoHeight = videoRef.current.videoHeight
+        const videoWidth = videoRef.current.videoWidth
+        const videoRatio = videoHeight / videoWidth
 
-      const clientHeight = cameraBodyRef.current.clientHeight
-      const clientWidth = cameraBodyRef.current.clientWidth
-      const clientRatio = clientHeight / clientWidth
+        const clientHeight = cameraBodyRef.current.clientHeight
+        const clientWidth = cameraBodyRef.current.clientWidth
+        const clientRatio = clientHeight / clientWidth
 
-      if (props.model) {
-        setModelHeight(null)
-        setModelWidth(null)
+        if (props.model) {
+          setModelHeight(null)
+          setModelWidth(null)
 
-        const modelHeight = modelRef.current.clientHeight
-        const modelWidth = modelRef.current.clientWidth
-        const modelRatio = modelHeight / modelWidth
+          const modelHeight = modelRef.current.clientHeight
+          const modelWidth = modelRef.current.clientWidth
+          const modelRatio = modelHeight / modelWidth
 
-        if (modelRatio > clientRatio) {
-          setModelHeight(clientHeight - 20)
-        } else {
-          setModelWidth(clientWidth - 20)
+          if (modelRatio > clientRatio) {
+            setModelHeight(clientHeight - 20)
+          } else {
+            setModelWidth(clientWidth - 20)
+          }
         }
-      }
 
-      if (videoRatio > clientRatio) {
-        videoRef.current.height = clientHeight
-        videoRef.current.width = (videoWidth * clientHeight) / videoHeight
-      } else {
-        videoRef.current.height = (videoHeight * clientWidth) / videoWidth
-        videoRef.current.width = clientWidth
-      }
+        if (videoRatio > clientRatio) {
+          videoRef.current.height = clientHeight
+          videoRef.current.width = (videoWidth * clientHeight) / videoHeight
+        } else {
+          videoRef.current.height = (videoHeight * clientWidth) / videoWidth
+          videoRef.current.width = clientWidth
+        }
+      }, 500)
     }
   }
 
