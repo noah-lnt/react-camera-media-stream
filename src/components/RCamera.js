@@ -35,10 +35,10 @@ export const RCamera = (props) => {
     try {
       const mediaStream = videoRef.current.srcObject
       const track = mediaStream.getVideoTracks()[0];
-      
+
       if (!isTorch) {
         track.applyConstraints({
-          advanced: [{ torch: true }]
+          torch: true
         }).then(function () {
           setIsTorch(true)
         }).catch((e) => {
@@ -47,9 +47,9 @@ export const RCamera = (props) => {
       }
       else {
         track.applyConstraints({
-          advanced: [{ torch: false }]
+          torch: true
         }).then(function () {
-          setIsTorch(false) 
+          setIsTorch(false)
         }).catch((e) => {
           console.log(e)
         });
