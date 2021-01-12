@@ -7,18 +7,13 @@ export const RCamera = (props) => {
   const [modelWidth, setModelWidth] = useState(null)
   const [isConfirm, setIsConfirm] = useState(false)
   const [isAnimation, setIsAnimation] = useState(false)
+  const [isTorch, setIsTorch] = useState(false)
   const [data, setData] = useState(false)
   const containerRef = useRef(null)
   const cameraBodyRef = useRef(null)
   const videoRef = useRef(null)
   const modelRef = useRef(null)
   const canvasRef = useRef(null)
-
-  let imageCapture = null;
-  const imageCaptureConfig = {
-    fillLightMode: "off", /* or "flash" */
-    focusMode: "continuous"
-  };
 
   const startCamera = async () => {
     try {
@@ -37,19 +32,28 @@ export const RCamera = (props) => {
   }
 
   const startTorch = () => {
-    if (imageCaptureConfig.fillLightMode === "torch") {
-      imageCaptureConfig.fillLightMode = "off"
-    } else {
-      imageCaptureConfig.fillLightMode = "torch"
-    }
-
     try {
       const mediaStream = videoRef.current.srcObject
       const track = mediaStream.getVideoTracks()[0];
-      imageCapture = new ImageCapture(track);
-
-      imageCapture.setOptions(imageCaptureConfig)
-        .catch(err => console.error('setOptions(' + JSON.stringify(imageCaptureConfig) + ') failed: ', err));
+      
+      if (!isTorch) {
+        track.applyConstraints({
+          advanced: [{ torch: true }]
+        }).then(function () {
+          setIsTorch(true)
+        }).catch((e) => {
+          console.log(e)
+        });
+      }
+      else {
+        track.applyConstraints({
+          advanced: [{ torch: false }]
+        }).then(function () {
+          setIsTorch(false) 
+        }).catch((e) => {
+          console.log(e)
+        });
+      }
     } catch (e) {
       console.log(e)
     }
