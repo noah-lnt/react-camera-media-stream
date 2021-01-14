@@ -39,14 +39,17 @@ export const RCamera = (props) => {
         }).then(function () {
           setIsTorch(true)
         }).catch((e) => {
+          setIsTorch(true)
           console.log(e)
         });
       } else {
         track.applyConstraints({
           advanced: [{ torch: false }]
         }).then(function () {
+          console.log(isTorch)
           setIsTorch(false)
         }).catch((e) => {
+          setIsTorch(false)
           console.log(e)
         });
       }
@@ -184,7 +187,10 @@ export const RCamera = (props) => {
           </button>
           {
             props.isTorch ?
-              <button onClick={startTorch}>
+              <button
+              className={isTorch ? style['RCamera-torch-enable'] : ''}
+              onClick={startTorch}
+              >
                 {props.textTorch ? props.textTorch : 'Enable torch'}
               </button> : ''
           }

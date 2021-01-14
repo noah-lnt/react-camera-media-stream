@@ -103,4 +103,8 @@
     }
 }
 
+.RCamera-torch-enable {
+    background-color: red !important;
+}
+
 /* end RCamera */
