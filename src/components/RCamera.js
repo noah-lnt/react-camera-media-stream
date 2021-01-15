@@ -154,6 +154,15 @@ export const RCamera = (props) => {
     }
   }, [])
 
+  const handleClose = () => {
+    const mediaStream = videoRef.current.srcObject
+    mediaStream.getTracks().forEach(function (track) {
+      track.stop()
+    })
+
+    props.onClose()
+  }
+
   return (
     <div ref={containerRef} className={style['RCamera-container']}>
       <div className={style['RCamera-camera']}>
@@ -179,21 +188,22 @@ export const RCamera = (props) => {
           <canvas ref={canvasRef} style={{ display: 'none' }} />
         </div>
         <div className={style['RCamera-camera-footer']}>
-          <button onClick={props.onClose}>
+          <button onClick={handleClose}>
             {props.textCancel ? props.textCancel : 'Cancel'}
           </button>
           <button onClick={handleTakePicture}>
             {props.textPicture ? props.textPicture : 'Take picture'}
           </button>
-          {
-            props.isTorch ?
-              <button
+          {props.isTorch ? (
+            <button
               className={isTorch ? style['RCamera-torch-enable'] : ''}
               onClick={startTorch}
-              >
-                {props.textTorch ? props.textTorch : 'Enable torch'}
-              </button> : ''
-          }
+            >
+              {props.textTorch ? props.textTorch : 'Enable torch'}
+            </button>
+          ) : (
+            ''
+          )}
         </div>
       </div>
       {isConfirm ? (
