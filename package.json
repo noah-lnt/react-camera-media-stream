@@ -4,7 +4,7 @@
   "description": "React Camera Media Stream component",
   "author": "Noah LANFRIT",
   "license": "MIT",
-  "repository": "nolan-sarl/react-camera-media-stream",
+  "repository": "noah-lnt/react-camera-media-stream",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
   "source": "src/index.js",
