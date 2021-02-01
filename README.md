@@ -8,7 +8,9 @@
 
 ## Installation
 
-    npm install --save react-camera-media-stream
+```bash
+npm install --save react-camera-media-stream
+```
 
 ## Documentation
 
@@ -28,23 +30,28 @@
 | textAgain | string | "Retake" | text for button again |
 | textConfirm | string | "Confirm" | text for button confirm |
 
-
 ## Getting started
 
 ### Import Component and style
-    import { RCamera } from  'react-camera-media-stream'
-    import  'react-camera-media-stream/dist/index.css'
-    
+
+```bash
+import { RCamera } from  'react-camera-media-stream'
+import  'react-camera-media-stream/dist/index.css'
+```
+
 ### Render Component
-    <RCamera
-	    model={require('./images/model.png')}
-	    isConfirm={false}
-	    onTakePicture={(data) =>  console.log(data)}
-		onClose={() =>  setTest(false)}
-	    isFullscreen={true}
-	    namePicture="test"
-	    isTorch={true}
-    />
+
+```bash
+<RCamera
+  model={require('./images/model.png')}
+  isConfirm={false}
+  onTakePicture={(data) =>  console.log(data)}
+onClose={() =>  setTest(false)}
+  isFullscreen={true}
+  namePicture="test"
+  isTorch={true}
+/>
+```
 
 ## License
 
