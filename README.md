@@ -1,5 +1,7 @@
 # React Camera MediaStream
 
+[![NPM](https://img.shields.io/npm/v/react-camera-media-stream.svg)](https://www.npmjs.com/package/react-camera-media-stream) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+
 **Camera component for React.**
 
 **Note: Browsers will throw an error if the page is loaded from insecure origin. I.e. Use https.**
