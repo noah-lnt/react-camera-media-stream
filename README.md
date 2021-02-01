@@ -34,14 +34,14 @@ npm install --save react-camera-media-stream
 
 ### Import Component and style
 
-```bash
+```js
 import { RCamera } from  'react-camera-media-stream'
 import  'react-camera-media-stream/dist/index.css'
 ```
 
 ### Render Component
 
-```bash
+```js
 <RCamera
   model={require('./images/model.png')}
   isConfirm={false}
