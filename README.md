@@ -43,3 +43,7 @@
 	    namePicture="test"
 	    isTorch={true}
     />
+
+## License
+
+MIT © [noah-lnt](https://github.com/noah-lnt)
