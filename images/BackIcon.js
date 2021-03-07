@@ -5,6 +5,7 @@ function BackIcon(props) {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 438.483 438.483"
+      fill="#ffffff"
       style={{width: "100%", height: "100%"}}
       {...props}
     >
