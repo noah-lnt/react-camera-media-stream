@@ -19,6 +19,7 @@
 }
 
 .RCamera-camera, .RCamera-preview {
+    position: relative;
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -43,7 +44,7 @@
     margin: auto;
     max-height: 100%;
     max-width: 100%;
-    background-color: rgba(255, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .RCamera-camera-body>img {
@@ -75,7 +76,7 @@
     opacity: 0.7;
 }
 
-.RCamera-container button:hover {
+.RCamera-container button:active {
     opacity: 0.5;
 }
 
@@ -105,6 +106,34 @@
 
 .RCamera-torch-enable {
     background-color: red !important;
+}
+
+.RCamera-container-button-icon {
+    position: absolute;
+    display: flex;
+    bottom: 1rem;
+    left: 0;
+    right: 0;
+}
+
+.RCamera-button-icon {
+    display: inline-flex;
+    margin: auto;
+    padding: 1rem;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+
+
+.RCamera-button-icon:hover {
+    opacity: 0.7;
+}
+
+.RCamera-button-icon:active {
+    opacity: 0.5;
 }
 
 /* end RCamera */

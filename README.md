@@ -24,6 +24,7 @@ npm install --save react-camera-media-stream
 | model | string | "" | model on first plan camera |
 | isFullscreen | boolean | false | view in fullscreen (not all navigator are compatible) |
 | onClose | function |  | click close view camera |
+| isTextMode | boolean | false | button text / button icon |
 | textCancel | string | "Cancel" | text for button cancel |
 | textPicture | string | "Take  picture" | text for button take picture |
 | textTorch | string | "Enable  torch" | text for button enable/disable torch (not all navigator are compatible) |

@@ -2,6 +2,10 @@ import React, { useEffect, useRef, useState } from 'react'
 import screenfull from 'screenfull'
 import style from './RCamera.css'
 
+import BackIcon from '../../images/BackIcon'
+import CameraIcon from '../../images/CameraIcon'
+import TorchIcon from '../../images/TorchIcon'
+
 export const RCamera = (props) => {
   const [modelHeight, setModelHeight] = useState(null)
   const [modelWidth, setModelWidth] = useState(null)
@@ -183,28 +187,53 @@ export const RCamera = (props) => {
               width={modelWidth}
             />
           ) : (
-              ''
-            )}
-          <canvas ref={canvasRef} style={{ display: 'none' }} />
-        </div>
-        <div className={style['RCamera-camera-footer']}>
-          <button onClick={handleClose}>
-            {props.textCancel ? props.textCancel : 'Cancel'}
-          </button>
-          <button onClick={handleTakePicture}>
-            {props.textPicture ? props.textPicture : 'Take picture'}
-          </button>
-          {props.isTorch ? (
-            <button
-              className={isTorch ? style['RCamera-torch-enable'] : ''}
-              onClick={startTorch}
-            >
-              {props.textTorch ? props.textTorch : 'Enable torch'}
-            </button>
-          ) : (
             ''
           )}
+          <canvas ref={canvasRef} style={{ display: 'none' }} />
         </div>
+        {props.isTextMode ? (
+          <div className={style['RCamera-camera-footer']}>
+            <button onClick={handleClose}>
+              {props.textCancel ? props.textCancel : 'Cancel'}
+            </button>
+            <button onClick={handleTakePicture}>
+              {props.textPicture ? props.textPicture : 'Take picture'}
+            </button>
+            {props.isTorch ? (
+              <button
+                className={isTorch ? style['RCamera-torch-enable'] : ''}
+                onClick={startTorch}
+              >
+                {props.textTorch ? props.textTorch : 'Enable torch'}
+              </button>
+            ) : (
+              ''
+            )}
+          </div>
+        ) : (
+          <div className={style['RCamera-container-button-icon']}>
+            <div className={style['RCamera-button-icon']} onClick={handleClose}>
+              <BackIcon />
+            </div>
+            <div
+              className={style['RCamera-button-icon']}
+              style={{ width: '44px', height: '44px' }}
+              onClick={handleTakePicture}
+            >
+              <CameraIcon />
+            </div>
+            <div
+              className={
+                style['RCamera-button-icon'] +
+                ' ' +
+                (isTorch ? style['RCamera-torch-enable'] : '')
+              }
+              onClick={startTorch}
+            >
+              <TorchIcon />
+            </div>
+          </div>
+        )}
       </div>
       {isConfirm ? (
         <div className={style['RCamera-preview']}>
@@ -214,6 +243,7 @@ export const RCamera = (props) => {
               className={isAnimation ? style['RCamera-animation'] : ''}
             />
           </div>
+
           <div className={style['RCamera-preview-footer']}>
             <button onClick={() => setIsConfirm(false)}>
               {props.textAgain ? props.textAgain : 'Retake'}
@@ -227,10 +257,11 @@ export const RCamera = (props) => {
               {props.textConfirm ? props.textConfirm : 'Confirm'}
             </button>
           </div>
+
         </div>
       ) : (
-          ''
-        )}
+        ''
+      )}
     </div>
   )
 }
