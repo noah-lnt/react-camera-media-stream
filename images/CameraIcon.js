@@ -5,6 +5,7 @@ function CameraIcon(props) {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 36.174 36.174"
+      style={{width: "100%", height: "100%"}}
       fill="#ffffff"
       {...props}
     >
