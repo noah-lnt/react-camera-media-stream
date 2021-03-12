@@ -212,12 +212,16 @@ export const RCamera = (props) => {
           </div>
         ) : (
           <div className={style['RCamera-container-button-icon']}>
-            <div className={style['RCamera-button-icon']} onClick={handleClose}>
+            <div
+              className={style['RCamera-button-icon']}
+              style={{ width: '52px', height: '52px' }}
+              onClick={handleClose}
+            >
               <BackIcon />
             </div>
             <div
               className={style['RCamera-button-icon']}
-              style={{ width: '44px', height: '44px' }}
+              style={{ width: '64px', height: '64px' }}
               onClick={handleTakePicture}
             >
               <CameraIcon />
@@ -228,6 +232,7 @@ export const RCamera = (props) => {
                 ' ' +
                 (isTorch ? style['RCamera-torch-enable'] : '')
               }
+              style={{ width: '52px', height: '52px' }}
               onClick={startTorch}
             >
               <TorchIcon />

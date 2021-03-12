@@ -11,6 +11,11 @@
     height: 100%;
     background-color: black;
     z-index: 10;
+    box-sizing: border-box !important;
+}
+
+.RCamera-container * {
+    box-sizing: border-box !important;
 }
 
 .RCamera-container>p {
