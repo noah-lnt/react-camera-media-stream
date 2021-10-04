@@ -222,7 +222,7 @@ export const RCamera = (props) => {
         ) : (
           <div
             className={
-              props.isFixButton && this.window.width > this.window.height
+              props.isFixButton && window.innerWidth > window.innerHeight
                 ? style['RCamera-container-button-icon-right']
                 : style['RCamera-container-button-icon']
             }

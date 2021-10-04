@@ -16,6 +16,7 @@ const App = () => {
       isFullscreen={true}
       namePicture="test"
       isTorch={true}
+      isFixButton={true}
     /> : ''}
   </div>
 }
