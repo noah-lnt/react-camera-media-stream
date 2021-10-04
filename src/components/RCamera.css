@@ -1,144 +1,155 @@
 /* start RCamera */
 
 .RCamera-container {
-    display: flex;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-    background-color: black;
-    z-index: 10;
-    box-sizing: border-box !important;
+  display: flex;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  z-index: 10;
+  box-sizing: border-box !important;
 }
 
 .RCamera-container * {
-    box-sizing: border-box !important;
+  box-sizing: border-box !important;
 }
 
-.RCamera-container>p {
-    margin: auto;
-    color: white;
+.RCamera-container > p {
+  margin: auto;
+  color: white;
 }
 
-.RCamera-camera, .RCamera-preview {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 100%;
+.RCamera-camera,
+.RCamera-preview {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
 }
 
 .RCamera-preview {
-    position: absolute;
-    z-index: 10;
-    background-color: black;
+  position: absolute;
+  z-index: 10;
+  background-color: black;
 }
 
-.RCamera-camera-body, .RCamera-preview-body {
-    position: relative;
-    display: flex;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
+.RCamera-camera-body,
+.RCamera-preview-body {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
 
-.RCamera-camera-body>video, .RCamera-preview-body>img {
-    margin: auto;
-    max-height: 100%;
-    max-width: 100%;
-    background-color: rgba(255, 255, 255, 0.1);
+.RCamera-camera-body > video,
+.RCamera-preview-body > img {
+  margin: auto;
+  max-height: 100%;
+  max-width: 100%;
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
-.RCamera-camera-body>img {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    max-height: 100%;
-    max-width: 100%;
+.RCamera-camera-body > img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  max-height: 100%;
+  max-width: 100%;
 }
 
-.RCamera-camera-footer, .RCamera-preview-footer {
-    display: flex;
-    width: 100%;
-    margin-top: auto;
+.RCamera-camera-footer,
+.RCamera-preview-footer {
+  display: flex;
+  width: 100%;
+  margin-top: auto;
 }
 
 .RCamera-container button {
-    width: 100%;
-    text-align: center;
-    background-color: gray;
-    padding: 16px;
-    border: none;
-    transition: 0.3s;
-    cursor: pointer;
+  width: 100%;
+  text-align: center;
+  background-color: gray;
+  padding: 16px;
+  border: none;
+  transition: 0.3s;
+  cursor: pointer;
 }
 
 .RCamera-container button:hover {
-    opacity: 0.7;
+  opacity: 0.7;
 }
 
 .RCamera-container button:active {
-    opacity: 0.5;
+  opacity: 0.5;
 }
 
 .RCamera-container button:focus {
-    outline: none;
+  outline: none;
 }
 
 .RCamera-animation {
-    animation-duration: 0.6s;
-    animation-name: animation-camera;
+  animation-duration: 0.6s;
+  animation-name: animation-camera;
 }
 
 @keyframes animation-camera {
-    0% {
-        transform: scale(1);
-        opacity: 1;
-    }
-    50% {
-        transform: scale(0.8);
-        opacity: 0.5;
-    }
-    100% {
-        transform: scale(1);
-        opacity: 1;
-    }
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .RCamera-torch-enable {
-    background-color: red !important;
+  background-color: red !important;
 }
 
 .RCamera-container-button-icon {
-    position: absolute;
-    display: flex;
-    bottom: 1rem;
-    left: 0;
-    right: 0;
+  position: absolute;
+  display: flex;
+  bottom: 1rem;
+  left: 0;
+  right: 0;
+}
+
+.RCamera-container-button-icon-right {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 0;
+  bottom: 0;
+  right: 1rem;
 }
 
 .RCamera-button-icon {
-    display: inline-flex;
-    margin: auto;
-    padding: 1rem;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    background-color: rgba(0, 0, 0, 0.6);
+  display: inline-flex;
+  margin: auto;
+  padding: 1rem;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
-
-
 .RCamera-button-icon:hover {
-    opacity: 0.7;
+  opacity: 0.7;
 }
 
 .RCamera-button-icon:active {
-    opacity: 0.5;
+  opacity: 0.5;
 }
 
 /* end RCamera */

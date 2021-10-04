@@ -20,42 +20,51 @@ export const RCamera = (props) => {
   const canvasRef = useRef(null)
 
   const startCamera = async () => {
-    navigator.mediaDevices.getUserMedia({
-      audio: false,
-      video: {
-        width: 2560,
-        height: 1440,
-        facingMode: 'environment'
-      }
-    }).then((stream) => {
-      videoRef.current.srcObject = stream
-    }).catch(err => console.log(err));
+    navigator.mediaDevices
+      .getUserMedia({
+        audio: false,
+        video: {
+          width: 2560,
+          height: 1440,
+          facingMode: 'environment'
+        }
+      })
+      .then((stream) => {
+        videoRef.current.srcObject = stream
+      })
+      .catch((err) => console.log(err))
   }
 
   const startTorch = () => {
     try {
       const mediaStream = videoRef.current.srcObject
-      const track = mediaStream.getVideoTracks()[0];
+      const track = mediaStream.getVideoTracks()[0]
 
       if (!isTorch) {
-        track.applyConstraints({
-          advanced: [{ torch: true }]
-        }).then(function () {
-          setIsTorch(true)
-        }).catch((e) => {
-          setIsTorch(true)
-          console.log(e)
-        });
+        track
+          .applyConstraints({
+            advanced: [{ torch: true }]
+          })
+          .then(function () {
+            setIsTorch(true)
+          })
+          .catch((e) => {
+            setIsTorch(true)
+            console.log(e)
+          })
       } else {
-        track.applyConstraints({
-          advanced: [{ torch: false }]
-        }).then(function () {
-          console.log(isTorch)
-          setIsTorch(false)
-        }).catch((e) => {
-          setIsTorch(false)
-          console.log(e)
-        });
+        track
+          .applyConstraints({
+            advanced: [{ torch: false }]
+          })
+          .then(function () {
+            console.log(isTorch)
+            setIsTorch(false)
+          })
+          .catch((e) => {
+            setIsTorch(false)
+            console.log(e)
+          })
       }
     } catch (e) {
       console.log(e)
@@ -211,7 +220,13 @@ export const RCamera = (props) => {
             )}
           </div>
         ) : (
-          <div className={style['RCamera-container-button-icon']}>
+          <div
+            className={
+              props.isFixButton && this.window.width > this.window.height
+                ? style['RCamera-container-button-icon-right']
+                : style['RCamera-container-button-icon']
+            }
+          >
             <div
               className={style['RCamera-button-icon']}
               style={{ width: '52px', height: '52px' }}
@@ -262,7 +277,6 @@ export const RCamera = (props) => {
               {props.textConfirm ? props.textConfirm : 'Confirm'}
             </button>
           </div>
-
         </div>
       ) : (
         ''
