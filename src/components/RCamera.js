@@ -154,14 +154,18 @@ export const RCamera = (props) => {
 
   useEffect(() => {
     if (props.isFullscreen && screenfull.isEnabled) {
-      screenfull.request(containerRef.current)
+      try {
+        screenfull.request(containerRef.current)
+      } catch (e) {}
     }
     startCamera()
     window.addEventListener('resize', setSize)
     document.body.style.overflow = 'hidden'
     return () => {
       if (props.isFullscreen && screenfull.isEnabled) {
-        screenfull.toggle(containerRef.current)
+        try {
+          screenfull.toggle(containerRef.current)
+        } catch (e) {}
       }
       document.body.style.overflow = 'unset'
     }
@@ -169,9 +173,11 @@ export const RCamera = (props) => {
 
   const handleClose = () => {
     const mediaStream = videoRef.current.srcObject
-    mediaStream.getTracks().forEach(function (track) {
-      track.stop()
-    })
+    try {
+      mediaStream.getTracks().forEach(function (track) {
+        track.stop()
+      })
+    } catch (e) {}
 
     props.onClose()
   }
