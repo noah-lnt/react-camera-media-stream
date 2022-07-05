@@ -10,7 +10,7 @@
   width: 100%;
   height: 100%;
   background-color: black;
-  z-index: 10;
+  z-index: 100;
   box-sizing: border-box !important;
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none; /* Safari */
@@ -41,7 +41,7 @@
 
 .RCamera-preview {
   position: absolute;
-  z-index: 10;
+  z-index: 100;
   background-color: black;
 }
 
