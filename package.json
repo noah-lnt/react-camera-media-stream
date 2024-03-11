@@ -1,6 +1,6 @@
 {
   "name": "react-camera-media-stream",
-  "version": "0.1.17",
+  "version": "0.1.18",
   "description": "React Camera Media Stream component",
   "author": "Noah LANFRIT",
   "license": "MIT",
@@ -53,6 +53,6 @@
   "dependencies": {
     "install": "^0.13.0",
     "npm": "^6.14.7",
-    "screenfull": "^5.1.0"
+    "screenfull": "^6.0.2"
   }
 }

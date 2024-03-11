@@ -32,7 +32,12 @@ export const RCamera = (props) => {
       .then((stream) => {
         videoRef.current.srcObject = stream
       })
-      .catch((err) => console.log(err))
+      .catch((err) => {
+        console.log(err)
+        if (props.onError) {
+          props.onError()
+        }
+      })
   }
 
   const startTorch = () => {
@@ -118,6 +123,7 @@ export const RCamera = (props) => {
   const setSize = () => {
     if (videoRef.current) {
       setTimeout(() => {
+        console.log(videoRef.current.videoHeight, videoRef.current.videoWidth)
         const videoHeight = videoRef.current.videoHeight
         const videoWidth = videoRef.current.videoWidth
         const videoRatio = videoHeight / videoWidth
@@ -134,10 +140,12 @@ export const RCamera = (props) => {
           const modelWidth = modelRef.current.clientWidth
           const modelRatio = modelHeight / modelWidth
 
-          if (modelRatio > clientRatio) {
-            setModelHeight(clientHeight - 20)
+          console.log('clientHeight', clientHeight, modelRatio, clientRatio)
+          console.log('clientWidth', clientWidth, modelRatio, clientRatio)
+          if (modelRatio > videoRatio) {
+            setModelHeight(videoHeight - (props.marginModel || 40))
           } else {
-            setModelWidth(clientWidth - 20)
+            setModelWidth(videoWidth - (props.marginModel || 40))
           }
         }
 

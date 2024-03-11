@@ -21,7 +21,9 @@ npm install --save react-camera-media-stream
 | imageCompression | float | 0.8 | quality of picture (0 to 1) |
 | isConfirm | boolean | false | confirmation after take picture |
 | onTakePicture | function |  | click take picture |
+| onError | function |  | on error |
 | model | string | "" | model on first plan camera |
+| marginModel | int | 40 | margin model |
 | isFullscreen | boolean | false | view in fullscreen (not all navigator are compatible) |
 | onClose | function |  | click close view camera |
 | isTextMode | boolean | false | button text / button icon |
@@ -47,7 +49,8 @@ import  'react-camera-media-stream/dist/index.css'
   model={require('./images/model.png')}
   isConfirm={false}
   onTakePicture={(data) =>  console.log(data)}
-onClose={() =>  setTest(false)}
+  onError={() => {}}
+  onClose={() => setTest(false)}
   isFullscreen={true}
   namePicture="test"
   isTorch={true}
