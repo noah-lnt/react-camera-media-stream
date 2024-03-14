@@ -54,10 +54,6 @@
   overflow: hidden;
 }
 
-.RCamera-camera-body {
-  background-color: red;
-}
-
 .RCamera-camera-body > video,
 .RCamera-preview-body > img {
   margin: auto;
