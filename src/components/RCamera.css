@@ -54,6 +54,10 @@
   overflow: hidden;
 }
 
+.RCamera-camera-body {
+  background-color: red;
+}
+
 .RCamera-camera-body > video,
 .RCamera-preview-body > img {
   margin: auto;
@@ -62,13 +66,23 @@
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-.RCamera-camera-body > img {
+.RCamera-camera-body > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   max-height: 100%;
   max-width: 100%;
+}
+
+.RCamera-camera-body > div > img {
+  object-fit: contain;
+  position: relative;
+  width: 100%;
+  height: auto;
 }
 
 .RCamera-camera-footer,

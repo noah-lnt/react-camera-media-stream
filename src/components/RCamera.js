@@ -124,37 +124,15 @@ export const RCamera = (props) => {
     if (videoRef.current) {
       setTimeout(() => {
         console.log(videoRef.current.videoHeight, videoRef.current.videoWidth)
-        const videoHeight = videoRef.current.videoHeight
-        const videoWidth = videoRef.current.videoWidth
-        const videoRatio = videoHeight / videoWidth
-
-        const clientHeight = cameraBodyRef.current.clientHeight
-        const clientWidth = cameraBodyRef.current.clientWidth
-        const clientRatio = clientHeight / clientWidth
+        const clientHeight = videoRef.current.clientHeight
+        const clientWidth = videoRef.current.clientWidth
 
         if (props.model) {
           setModelHeight(null)
           setModelWidth(null)
 
-          const modelHeight = modelRef.current.clientHeight
-          const modelWidth = modelRef.current.clientWidth
-          const modelRatio = modelHeight / modelWidth
-
-          console.log('clientHeight', clientHeight, modelRatio, clientRatio)
-          console.log('clientWidth', clientWidth, modelRatio, clientRatio)
-          if (modelRatio > videoRatio) {
-            setModelHeight(videoHeight - (props.marginModel || 40))
-          } else {
-            setModelWidth(videoWidth - (props.marginModel || 40))
-          }
-        }
-
-        if (videoRatio > clientRatio) {
-          videoRef.current.height = clientHeight
-          videoRef.current.width = (videoWidth * clientHeight) / videoHeight
-        } else {
-          videoRef.current.height = (videoHeight * clientWidth) / videoWidth
-          videoRef.current.width = clientWidth
+          setModelHeight(clientHeight - (props.marginModel || 40))
+          setModelWidth(clientWidth - (props.marginModel || 40))
         }
       }, 500)
     }
@@ -203,12 +181,15 @@ export const RCamera = (props) => {
             className={isAnimation ? style['RCamera-animation'] : ''}
           />
           {props.model ? (
-            <img
-              ref={modelRef}
-              src={props.model}
-              height={modelHeight}
-              width={modelWidth}
-            />
+            <div
+              style={{
+                height: modelHeight,
+                width: modelWidth
+              }}
+            >
+              {console.log(modelHeight)}
+              <img ref={modelRef} src={props.model} />
+            </div>
           ) : (
             ''
           )}
