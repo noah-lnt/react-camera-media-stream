@@ -4,10 +4,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "HTTPS=true node ../node_modules/react-scripts/bin/react-scripts.js start",
-    "build": "node ../node_modules/react-scripts/bin/react-scripts.js build",
-    "test": "node ../node_modules/react-scripts/bin/react-scripts.js test",
-    "eject": "node ../node_modules/react-scripts/bin/react-scripts.js eject"
+    "start": "NODE_OPTIONS=--openssl-legacy-provider HTTPS=true node ../node_modules/react-scripts/bin/react-scripts.js start",
+    "build": "NODE_OPTIONS=--openssl-legacy-provider node ../node_modules/react-scripts/bin/react-scripts.js build",
+    "test": "NODE_OPTIONS=--openssl-legacy-provider node ../node_modules/react-scripts/bin/react-scripts.js test",
+    "eject": "NODE_OPTIONS=--openssl-legacy-provider node ../node_modules/react-scripts/bin/react-scripts.js eject"
   },
   "dependencies": {
     "react": "file:../node_modules/react",

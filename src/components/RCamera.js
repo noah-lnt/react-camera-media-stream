@@ -5,8 +5,11 @@ import style from './RCamera.css'
 import BackIcon from '../../images/BackIcon'
 import CameraIcon from '../../images/CameraIcon'
 import TorchIcon from '../../images/TorchIcon'
+import RotateIcon from '../../images/RotateIcon'
 
 export const RCamera = (props) => {
+  const [devices, setDevices] = useState([])
+  const [currentDeviceId, setCurrentDeviceId] = useState(null)
   const [modelHeight, setModelHeight] = useState(null)
   const [modelWidth, setModelWidth] = useState(null)
   const [isConfirm, setIsConfirm] = useState(false)
@@ -19,25 +22,36 @@ export const RCamera = (props) => {
   const modelRef = useRef(null)
   const canvasRef = useRef(null)
 
-  const startCamera = async () => {
-    navigator.mediaDevices
-      .getUserMedia({
+  const startCamera = async (deviceId = null) => {
+    try {
+      // stop existing tracks if any
+      try {
+        const oldStream = videoRef.current && videoRef.current.srcObject
+        if (oldStream && oldStream.getTracks) {
+          oldStream.getTracks().forEach((t) => t.stop())
+        }
+      } catch (e) {}
+
+      const videoConstraints = deviceId
+        ? { deviceId: { exact: deviceId } }
+        : {
+            width: 2560,
+            height: 1440,
+            facingMode: 'environment'
+          }
+
+      const stream = await navigator.mediaDevices.getUserMedia({
         audio: false,
-        video: {
-          width: 2560,
-          height: 1440,
-          facingMode: 'environment'
-        }
+        video: videoConstraints
       })
-      .then((stream) => {
-        videoRef.current.srcObject = stream
-      })
-      .catch((err) => {
-        console.log(err)
-        if (props.onError) {
-          props.onError()
-        }
-      })
+      videoRef.current.srcObject = stream
+      setIsTorch(false)
+    } catch (err) {
+      console.log(err)
+      if (props.onError) {
+        props.onError()
+      }
+    }
   }
 
   const startTorch = () => {
@@ -144,7 +158,39 @@ export const RCamera = (props) => {
         screenfull.request(containerRef.current)
       } catch (e) {}
     }
-    startCamera()
+    // ensure we have permission first — some browsers only expose all devices after getUserMedia
+    ;(async () => {
+      try {
+        // request a small temporary stream to prompt permission
+        const permStream = await navigator.mediaDevices.getUserMedia({
+          video: true
+        })
+        // stop permission stream immediately
+        try {
+          permStream.getTracks().forEach((t) => t.stop())
+        } catch (e) {}
+      } catch (e) {
+        // ignore permission error here; enumerateDevices may still work
+      }
+
+      try {
+        const list = await navigator.mediaDevices.enumerateDevices()
+        const videoInputs = list.filter((d) => d.kind === 'videoinput')
+        // try to prefer a previously selected device or start with first
+        // Prefer AR camera when available — match common labels like 'AR', 'rear', 'back'
+        const arDevice = videoInputs.find(
+          (d) => d.label && /ar|rear|back/i.test(d.label)
+        )
+        const initialDevice =
+          currentDeviceId || (arDevice && arDevice.deviceId) ||
+          (videoInputs[0] && videoInputs[0].deviceId)
+        setCurrentDeviceId(initialDevice)
+        startCamera(initialDevice)
+      } catch (err) {
+        // fallback to simple start
+        startCamera()
+      }
+    })()
     window.addEventListener('resize', setSize)
     document.body.style.overflow = 'hidden'
     return () => {
@@ -166,6 +212,23 @@ export const RCamera = (props) => {
     } catch (e) {}
 
     props.onClose()
+  }
+
+  const handleRotateCamera = () => {
+    try {
+      if (!devices || devices.length <= 1) return
+      const currentIndex = devices.findIndex(
+        (d) => d.deviceId === currentDeviceId
+      )
+      const nextIndex = (currentIndex + 1) % devices.length
+      const nextDevice = devices[nextIndex]
+      if (nextDevice) {
+        setCurrentDeviceId(nextDevice.deviceId)
+        startCamera(nextDevice.deviceId)
+      }
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   return (
@@ -213,6 +276,13 @@ export const RCamera = (props) => {
             ) : (
               ''
             )}
+            {devices && devices.length > 1 ? (
+              <button onClick={handleRotateCamera}>
+                {props.textRotate ? props.textRotate : 'Rotate'}
+              </button>
+            ) : (
+              ''
+            )}
           </div>
         ) : (
           <div
@@ -247,6 +317,17 @@ export const RCamera = (props) => {
             >
               <TorchIcon />
             </div>
+            {devices && devices.length > 1 ? (
+              <div
+                className={style['RCamera-button-icon']}
+                style={{ width: '52px', height: '52px' }}
+                onClick={handleRotateCamera}
+              >
+                <RotateIcon />
+              </div>
+            ) : (
+              ''
+            )}
           </div>
         )}
       </div>

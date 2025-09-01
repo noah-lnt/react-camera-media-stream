@@ -27,7 +27,8 @@ const App = () => {
     >
       <h1
         style={{
-          color: '#fff'
+          color: '#fff',
+          textAlign: 'center',
         }}
       >
         React Camera MediaStream
