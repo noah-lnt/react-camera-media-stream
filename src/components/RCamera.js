@@ -176,13 +176,15 @@ export const RCamera = (props) => {
       try {
         const list = await navigator.mediaDevices.enumerateDevices()
         const videoInputs = list.filter((d) => d.kind === 'videoinput')
+        setDevices(videoInputs)
         // try to prefer a previously selected device or start with first
         // Prefer AR camera when available — match common labels like 'AR', 'rear', 'back'
         const arDevice = videoInputs.find(
           (d) => d.label && /ar|rear|back/i.test(d.label)
         )
         const initialDevice =
-          currentDeviceId || (arDevice && arDevice.deviceId) ||
+          currentDeviceId ||
+          (arDevice && arDevice.deviceId) ||
           (videoInputs[0] && videoInputs[0].deviceId)
         setCurrentDeviceId(initialDevice)
         startCamera(initialDevice)
