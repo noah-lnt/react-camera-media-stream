@@ -178,11 +178,25 @@ export const RCamera = (props) => {
         const videoInputs = list.filter((d) => d.kind === 'videoinput')
         setDevices(videoInputs)
         // try to prefer a previously selected device or start with first
-        // Prefer AR camera when available — match common labels like 'AR', 'rear', 'back'
+        // Preferences (in order): props.defaultDeviceId, props.defaultDeviceLabel match,
+        // previously selected device, AR/back camera heuristic, first available
         const arDevice = videoInputs.find(
           (d) => d.label && /ar|rear|back/i.test(d.label)
         )
+        // match by label if provided
+        const labelDevice = props.defaultDeviceLabel
+          ? videoInputs.find((d) =>
+              d.label
+                ? d.label
+                    .toLowerCase()
+                    .includes(props.defaultDeviceLabel.toLowerCase())
+                : false
+            )
+          : null
+
         const initialDevice =
+          (props.defaultDeviceId && props.defaultDeviceId) ||
+          (labelDevice && labelDevice.deviceId) ||
           currentDeviceId ||
           (arDevice && arDevice.deviceId) ||
           (videoInputs[0] && videoInputs[0].deviceId)

@@ -32,6 +32,8 @@ npm install --save react-camera-media-stream
 | textTorch | string | "Enable  torch" | text for button enable/disable torch (not all navigator are compatible) |
 | textAgain | string | "Retake" | text for button again |
 | textConfirm | string | "Confirm" | text for button confirm |
+| defaultDeviceId | string | "" | optional: choose which camera to use by default by deviceId |
+| defaultDeviceLabel | string | "rear" | optional: choose which camera to use by default by matching part of the device label |
 
 ## Getting started
 
@@ -54,6 +56,10 @@ import  'react-camera-media-stream/dist/index.css'
   isFullscreen={true}
   namePicture="test"
   isTorch={true}
+  // optional: choose which camera to use by default
+  // by deviceId (string) or by matching part of the device label (string)
+  defaultDeviceId={"<deviceId>"}
+  defaultDeviceLabel={"rear"}
 />
 ```
 
